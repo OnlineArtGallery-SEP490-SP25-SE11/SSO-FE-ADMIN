@@ -27,6 +27,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           
       - name: Comment Preview URL
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
