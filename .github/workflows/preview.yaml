@@ -6,10 +6,9 @@ env:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-  push:
     branches:
-      - preview
+      - preview    # Chỉ trigger khi PR vào nhánh preview
+    types: [opened, synchronize, reopened]
 
 jobs:
   deploy-preview:
