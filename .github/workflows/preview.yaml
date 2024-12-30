@@ -26,15 +26,9 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           
       - name: Comment Preview URL
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
+        uses: peter-evans/create-or-update-comment@v3
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.name,
-              body: `🚀 Preview deployment is ready! You can view it at: ${process.env.PREVIEW_URL}`
-            })
-        env:
-          PREVIEW_URL: ${{ steps.vercel-deploy.outputs.preview-url }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            🚀 Preview deployment is ready!
+            Deployment URL: ${{ steps.vercel-deploy.outputs.preview-url }}
